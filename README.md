@@ -13,7 +13,7 @@ var fortnox = new Fortnox(clientSecret)
 fortnox.dispatch(accessToken, 'get', 'invoices', null)
 fortnox.dispatch(accessToken, 'put', 'invoices', 'Invoice': { CustomerNumber: 1 })
 ```
-To activate and recieve your access_token use
+To activate and recieve your refresh_token & access_token use
 ```javascript
 fortnox.activate(access_code, redirectUrl)
 ```
@@ -24,4 +24,8 @@ fortnox.refreshToken(refreshToken)
 To send API calls use
 ```javascript
 fortnox.dispatch(accessToken, requestMethod, entity, body)
+```
+To traverse several pages take a look at getCustomerNumber that traverses all users until a customer with matching input email is found
+```javascript
+fortnox.getCustomerNumber(accessToken, email)
 ```
