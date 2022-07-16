@@ -1,0 +1,12 @@
+{
+  "name": "fortnox-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fortnox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Heimburg",
+  "private": true,
+  "license": "ISC"
+}
