@@ -2,7 +2,7 @@
   "name": "@danielheimburg/fortnox-api",
   "version": "0.1.11",
   "description": "This is a simple api client for fortnox written in NodeJS",
-  "main": "src/fortnox.js",
+  "main": "fortnox.js",
   "repository": "danielheimburg/fortnox-api",
   "scripts": {
     "package": "npm version patch && npm publish",
@@ -16,5 +16,12 @@
   },
   "devDependencies": {
     "jest": "^28.1.3"
-  }
+  },
+  "files": [
+    "fortnox.js"
+  ],
+    "keywords": [
+      "fortnox",
+      "api"
+    ]
 }

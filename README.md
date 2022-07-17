@@ -9,7 +9,7 @@ See APIDocs @ https://apps.fortnox.se/apidocs
 ## Usage
 ```javascript
 var FortnoxAPI = require('fortnox')
-var fortnox = new Fortnox(clientId, clientSecret)
+var fortnox = new Fortnox('clientId', 'clientSecret')
 fortnox.dispatch(accessToken, 'get', 'invoices', null)
 fortnox.dispatch(accessToken, 'put', 'invoices', { 'Invoice': { CustomerNumber: 1 } })
 ```
