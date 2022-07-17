@@ -9,9 +9,9 @@ See APIDocs @ https://apps.fortnox.se/apidocs
 ## Usage
 ```javascript
 var FortnoxAPI = require('fortnox')
-var fortnox = new Fortnox(clientSecret)
+var fortnox = new Fortnox(clientId, clientSecret)
 fortnox.dispatch(accessToken, 'get', 'invoices', null)
-fortnox.dispatch(accessToken, 'put', 'invoices', 'Invoice': { CustomerNumber: 1 })
+fortnox.dispatch(accessToken, 'put', 'invoices', { 'Invoice': { CustomerNumber: 1 } })
 ```
 To activate and recieve your refresh_token & access_token use
 ```javascript

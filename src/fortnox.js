@@ -1,8 +1,16 @@
+'use strict'
+
+module.exports =  FortnoxAPI
+
 const qs = require('qs')
 const axios = require('axios')
 
-function FortnoxAPI(secret) {
-    this.secret = secret
+function FortnoxAPI(clientId, clientSecret) {
+    this.credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64url')
+}
+
+FortnoxAPI.prototype.getCredentials = function() {
+    return this.credentials
 }
 
 FortnoxAPI.prototype.refreshToken = function (refreshToken) {
@@ -13,7 +21,7 @@ FortnoxAPI.prototype.refreshToken = function (refreshToken) {
             'grant_type': 'refresh_token'
         }), {
         headers: {
-            'Authorization': `Basic ${this.secret}`,
+            'Authorization': 'Basic ' + this.getCredentials(),
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(response => {
@@ -50,7 +58,7 @@ FortnoxAPI.prototype.activate = function (code, redirect) {
             'redirect_uri': redirect
         }), {
         headers: {
-            'Authorization': `Basic ${this.secret}`,
+            'Authorization': 'Basic ' + this.getCredentials(),
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(response => {
@@ -74,13 +82,11 @@ FortnoxAPI.prototype.getCustomerNumber = async function (accessToken, email) {
         pagination.maxPage = Number.parseInt(payload.MetaInformation['@TotalPages'])
         pagination.curPage++
 
-        let customer = payload.Customers.find((customer) => customer.Email.toLowerCase() == email.toLowerCase())
+        let customer = payload.Customers.find((customer) => customer.Email.toLowerCase() === email.toLowerCase())
 
         if (customer?.CustomerNumber)
-            return customer.CustomerNumber
+            return Number.parseInt(customer.CustomerNumber)
     }
 
     return -1
 }
-
-module.exports = FortnoxAPI
