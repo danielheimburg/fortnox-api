@@ -1,5 +1,4 @@
 const axios = require('axios')
-
 const FortnoxAPI = require('../fortnox')
 const fortnox = new FortnoxAPI("mockClientId", "mockClientSecret")
 
@@ -82,7 +81,7 @@ describe("getCustomerNumber", () => {
 
             axios.mockResolvedValueOnce(mockResult1).mockResolvedValueOnce(mockResult2)
             
-            const result = await fortnox.getCustomerNumber('access-token','email4@server.com')
+            const result = await fortnox.getCustomerNumber('access-token', 'email4@server.com')
 
             expect(result).toEqual(4)
         })

@@ -6,6 +6,7 @@
   "repository": "danielheimburg/fortnox-api",
   "scripts": {
     "package": "npm version patch && npm publish",
+    "lint": "eslint fortnox.js",
     "test": "npx jest"
   },
   "author": "Daniel Heimburg",
@@ -15,6 +16,7 @@
     "qs": "^6.11.0"
   },
   "devDependencies": {
+    "eslint": "^8.20.0",
     "jest": "^28.1.3"
   },
   "files": [
