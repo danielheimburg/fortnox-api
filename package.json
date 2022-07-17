@@ -1,6 +1,6 @@
 {
   "name": "@danielheimburg/fortnox-api",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "This is a simple api client/wrapper for fortnox written in NodeJS",
   "main": "fortnox.js",
   "repository": "danielheimburg/fortnox-api",
