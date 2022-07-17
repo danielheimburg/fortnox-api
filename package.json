@@ -10,7 +10,7 @@
     "test": "npx jest"
   },
   "author": "Daniel Heimburg",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
     "qs": "^6.11.0"
