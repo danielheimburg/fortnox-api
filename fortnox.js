@@ -1,7 +1,3 @@
-'use strict'
-
-module.exports =  FortnoxAPI
-
 const qs = require('qs')
 const axios = require('axios')
 
@@ -9,7 +5,7 @@ function FortnoxAPI(clientId, clientSecret) {
     this.credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64url')
 }
 
-FortnoxAPI.prototype.getCredentials = function() {
+FortnoxAPI.prototype.getCredentials = function () {
     return this.credentials
 }
 
@@ -21,7 +17,7 @@ FortnoxAPI.prototype.refreshToken = function (refreshToken) {
             'grant_type': 'refresh_token'
         }), {
         headers: {
-            'Authorization': 'Basic ' + this.getCredentials(),
+            'Authorization': `Basic ${this.getCredentials()}`,
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(response => {
@@ -42,9 +38,7 @@ FortnoxAPI.prototype.dispatch = function (accessToken, requestMethod, entity, bo
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }, data: body,
-    }).then(response => {
-        return response.data
-    }).catch(error => {
+    }).then(response => response.data).catch(error => {
         throw error
     })
 }
@@ -53,12 +47,12 @@ FortnoxAPI.prototype.activate = function (code, redirect) {
     return axios.post(`https://apps.fortnox.se/oauth-v1/token`,
 
         qs.stringify({
-            'code': code,
+            code,
             'grant_type': 'authorization_code',
-            'redirect_uri': redirect
+            'redirect_uri': redirect,
         }), {
         headers: {
-            'Authorization': 'Basic ' + this.getCredentials(),
+            'Authorization': `Basic ${this.getCredentials()}`,
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(response => {
@@ -75,18 +69,21 @@ FortnoxAPI.prototype.getCustomerNumber = async function (accessToken, email) {
     let pagination = { curPage: 1, maxPage: 1 }
 
     while (pagination.curPage <= pagination.maxPage) {
-        let payload = await this.dispatch(accessToken, 'get', 'customers?page=' + pagination.curPage, null).catch(error => {
+        let payload = await this.dispatch(accessToken, 'get', `customers?page=${pagination.curPage}`, null).catch(error => {
             throw error
         })
 
-        pagination.maxPage = Number.parseInt(payload.MetaInformation['@TotalPages'])
-        pagination.curPage++
+        pagination.maxPage = Number.parseInt(payload.MetaInformation['@TotalPages'], 10)
+        pagination.curPage += 1
 
-        let customer = payload.Customers.find((customer) => customer.Email.toLowerCase() === email.toLowerCase())
+        let customer = payload.Customers.find(customer => customer.Email.toLowerCase() === email.toLowerCase())
 
-        if (customer?.CustomerNumber)
-            return Number.parseInt(customer.CustomerNumber)
+        if (customer?.CustomerNumber) {
+            return Number.parseInt(customer.CustomerNumber, 10)
+        }
     }
 
     return -1
 }
+
+module.exports = FortnoxAPI
