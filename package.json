@@ -1,6 +1,6 @@
 {
   "name": "@danielheimburg/fortnox-api",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "This is a simple api client for fortnox written in NodeJS",
   "main": "fortnox.js",
   "repository": "danielheimburg/fortnox-api",
@@ -20,8 +20,8 @@
   "files": [
     "fortnox.js"
   ],
-    "keywords": [
-      "fortnox",
-      "api"
-    ]
+  "keywords": [
+    "fortnox",
+    "api"
+  ]
 }
