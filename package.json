@@ -5,13 +5,16 @@
   "main": "src/fortnox.js",
   "repository": "danielheimburg/fortnox-api",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "npm version patch && npm publish"
+    "publish": "npm version patch && npm publish",
+    "test": "npx jest"
   },
   "author": "Daniel Heimburg",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
     "qs": "^6.11.0"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
   }
 }
