@@ -1,6 +1,6 @@
 const axios = require('axios')
 const FortnoxAPI = require('../fortnox')
-const fortnox = new FortnoxAPI("mockClientId", "mockClientSecret")
+const fortnox = FortnoxAPI("mockClientId", "mockClientSecret")
 
 jest.mock("axios")
 
