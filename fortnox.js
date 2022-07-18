@@ -2,6 +2,10 @@ const qs = require('qs')
 const axios = require('axios')
 
 function FortnoxAPI(clientId, clientSecret) {
+    if (!(this instanceof FortnoxAPI)) {
+        return new FortnoxAPI(clientId, clientSecret);
+    }
+
     this.credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64url')
 }
 
