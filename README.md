@@ -1,15 +1,15 @@
 # Simple Fortnox API Client in NodeJS
 
-This is a simple api client for fortnox written in NodeJS. It will require you to keep track of your tokens with a database, cookie or cacheserver. You will also need to keep track of the token expiration and refresh it.
+This is a simple api client for fortnox written in NodeJS. It will require you to keep track of your tokens with a database, cookie or cacheserver. You will also need to refresh the access_token when it expires.
 
-This module uses OAuth2 for authentication which is the only authentication method available for new instances of Fortnox applications now.
+This module uses OAuth2 for authentication and supports Fortnox API v3. See Fortnox APIDocs @ https://apps.fortnox.se/apidocs
 
-See APIDocs @ https://apps.fortnox.se/apidocs
+This implementation only have the functions I needed for the API. If you need something else let me know.
 
 ## Usage
 ```javascript
 var FortnoxAPI = require('fortnox')
-var fortnox = new Fortnox('clientId', 'clientSecret')
+var fortnox = Fortnox('clientId', 'clientSecret')
 fortnox.dispatch(accessToken, 'get', 'invoices', null)
 fortnox.dispatch(accessToken, 'put', 'invoices', { 'Invoice': { CustomerNumber: 1 } })
 ```
@@ -17,7 +17,7 @@ To activate and recieve your refresh_token & access_token use
 ```javascript
 fortnox.activate(access_code, redirectUrl)
 ```
-To exchange a refresh_code for access_code use
+To exchange a refresh_token for access_token after expiration use
 ```javascript
 fortnox.refreshToken(refreshToken)
 ```
