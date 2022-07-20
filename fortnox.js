@@ -45,6 +45,9 @@ FortnoxAPI.prototype.dispatch = function (accessToken, requestMethod, entity, bo
     }).then(response => response.data).catch(error => {
         throw error
     })
+    /** Maybe handle pages here?
+     *  MetaInformation: { '@TotalResources': 171, '@TotalPages': 2, '@CurrentPage': 1 },
+     */
 }
 
 FortnoxAPI.prototype.activate = function (code, redirect) {
@@ -68,9 +71,9 @@ FortnoxAPI.prototype.activate = function (code, redirect) {
     })
 }
 
-FortnoxAPI.prototype.getCustomerNumber = async function (accessToken, email) {
-
+FortnoxAPI.prototype.getAllCustomers = async function (accessToken) {
     let pagination = { curPage: 1, maxPage: 1 }
+    let customers = []
 
     while (pagination.curPage <= pagination.maxPage) {
         let payload = await this.dispatch(accessToken, 'get', `customers?page=${pagination.curPage}`, null).catch(error => {
@@ -80,11 +83,18 @@ FortnoxAPI.prototype.getCustomerNumber = async function (accessToken, email) {
         pagination.maxPage = Number.parseInt(payload.MetaInformation['@TotalPages'], 10)
         pagination.curPage += 1
 
-        let customer = payload.Customers.find(customer => customer.Email.toLowerCase() === email.toLowerCase())
+        customers.push(...payload.Customers)
+    }
 
-        if (customer?.CustomerNumber) {
-            return Number.parseInt(customer.CustomerNumber, 10)
-        }
+    return customers
+}
+
+FortnoxAPI.prototype.getCustomerNumber = async function (accessToken, email) {
+
+    let customer = (await FortnoxAPI.prototype.getAllCustomers(accessToken)).find(customer => customer.Email.toLowerCase() === email.toLowerCase())
+
+    if (customer?.CustomerNumber) {
+        return Number.parseInt(customer.CustomerNumber, 10)
     }
 
     return -1

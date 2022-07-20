@@ -1,6 +1,6 @@
 # Simple Fortnox API Client in NodeJS
 
-This is a simple api client for fortnox written in NodeJS. It will require you to keep track of your tokens with a database, cookie or cacheserver. You will also need to refresh the access_token when it expires.
+This is a simple api client for fortnox written in NodeJS using the axios library. It will require you to keep track of your tokens with a database, cookie or cacheserver. You will also need to refresh the access_token when it expires.
 
 This module uses OAuth2 for authentication and supports Fortnox API v3. See Fortnox APIDocs @ https://apps.fortnox.se/apidocs
 
